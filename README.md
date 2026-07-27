@@ -2,1582 +2,297 @@
 
 Repository ini berisi progress pembelajaran dan implementasi ERPNext yang telah saya kerjakan selama proses magang.
 
-## Progress Chapter
-
-# Chapter 1 - Accounting
-
-## Tujuan
-Mempelajari dasar penggunaan ERPNext pada modul Accounting, mulai dari pembuatan perusahaan, penyusunan Chart of Accounts, pencatatan transaksi menggunakan Journal Entry, hingga melihat laporan keuangan.
-
----
-
-## Materi yang Dipelajari
-
-### 1. ERPNext
-ERPNext adalah software Enterprise Resource Planning (ERP) yang digunakan untuk membantu perusahaan mengelola seluruh proses bisnis dalam satu sistem terintegrasi, seperti:
-- Pembelian (Buying)
-- Penjualan (Selling)
-- Persediaan (Stock)
-- Keuangan (Accounting)
-
----
-
-### 2. Membuat Company
-Membuat perusahaan dengan nama:
-
-- **PT. Testing ERP**
-
----
-
-### 3. Chart of Accounts (COA)
-
-Chart of Accounts merupakan daftar seluruh akun akuntansi yang digunakan perusahaan untuk mencatat transaksi.
-
-Kategori akun yang dipelajari:
-
-- Asset
-- Liability
-- Equity
-- Expense
-- Income
-
-Contoh akun yang dibuat:
-
-- HSBC (Asset - Bank)
-- John (Equity)
-- Mary (Equity)
-
-Semua transaksi akuntansi menggunakan akun-akun yang terdapat pada Chart of Accounts.
-
----
-
-### 4. Bank Account
-
-Membuat rekening perusahaan menggunakan akun:
-
-- HSBC
-
-Bank Account digunakan sebagai rekening perusahaan untuk menerima maupun melakukan pembayaran.
-
----
-
-### 5. Journal Entry
-
-Journal Entry digunakan untuk mencatat seluruh transaksi akuntansi ke dalam sistem ERPNext.
-
-Contoh transaksi yang dilakukan:
-
-- Menyetor modal investor
-- Mencatat biaya sewa kantor
-
-Pencatatan menggunakan prinsip **Double Entry**, yaitu:
-
-- Total Debit = Total Kredit
-
----
-
-## Laporan Keuangan
-
-### Trial Balance
-
-Digunakan untuk memastikan keseimbangan pencatatan akuntansi.
-
-Menampilkan:
-
-- Semua akun
-- Total Debit
-- Total Kredit
-
----
-
-### Balance Sheet
-
-Digunakan untuk melihat posisi keuangan perusahaan.
-
-Menampilkan:
-
-- Asset
-- Liability
-- Equity
-
----
-
-### Profit & Loss
-
-Digunakan untuk melihat laba atau rugi perusahaan.
-
-Menampilkan:
-
-- Income
-- Expense
-
----
-
-### General Ledger
-
-General Ledger merupakan kumpulan seluruh transaksi jurnal yang telah dicatat.
-
-Informasi yang ditampilkan:
-
-- Tanggal transaksi
-- Akun
-- Debit
-- Kredit
-- Saldo
-
----
-
-## Catatan
-
-- John dan Mary merupakan akun **Equity (Modal)** karena berperan sebagai investor yang memberikan modal kepada perusahaan.
-- HSBC termasuk akun **Asset**, karena merupakan rekening bank yang menyimpan aset perusahaan.
-- Pada akun Asset berlaku aturan:
-  - Asset bertambah → Debit
-  - Asset berkurang → Kredit
-
----
-
-## Hasil Pembelajaran
-
-Pada Chapter 1 telah mempelajari:
-
-- Membuat Company
-- Memahami Chart of Accounts (COA)
-- Membuat akun Shareholder (John dan Mary)
-- Membuat Bank Account (HSBC)
-- Mencatat transaksi menggunakan Journal Entry
-- Melihat laporan Trial Balance
-- Melihat laporan Balance Sheet
-- Melihat laporan Profit & Loss
-- Melihat laporan General Ledger
-
-# Chapter 2 - Buying
-
-## Tujuan
-Mempelajari alur pembelian (Buying Cycle) pada ERPNext, mulai dari membuat Purchase Order hingga barang diterima dan transaksi tercatat pada laporan keuangan.
-
----
-
-## Alur Buying
-
-Purchase Order (PO)
-↓
-Purchase Invoice (PI)
-↓
-Payment Entry
-↓
-Purchase Receipt
-↓
-Laporan Keuangan
-
----
-
-## Materi yang Dipelajari
-
-### 1. Purchase Order (PO)
-
-Purchase Order merupakan dokumen pemesanan barang yang dikirim perusahaan kepada supplier.
-
-Yang dilakukan:
-
-- Membuat Supplier.
-- Membuat Purchase Order (PO).
-- Menentukan barang yang akan dipesan.
-
----
-
-### 2. Purchase Invoice (PI)
-
-Purchase Invoice merupakan tagihan dari supplier kepada perusahaan atas barang yang telah dipesan.
-
-Yang dipelajari:
-
-- Data Purchase Invoice dapat diambil dari Purchase Order menggunakan **Get Items From**.
-- Setelah Purchase Invoice dibuat, akan muncul akun sementara:
-
-```
-Stock Received But Not Billed
-```
-
-Artinya:
-
-- Barang sudah diterima.
-- Invoice masih berstatus **Unpaid**.
-- Perusahaan belum melakukan pembayaran kepada supplier.
-
----
-
-### 3. Payment Entry
-
-Payment Entry digunakan untuk melakukan pembayaran tagihan kepada supplier.
-
-Data yang diisi:
-
-- Payment Type
-- Party Type
-- Mode of Payment
-- Bank
-- Reference
-
-Setelah Payment Entry disubmit:
-
-Status Purchase Invoice berubah dari:
-
-```
-Unpaid → Paid
-```
-
----
-
-### 4. Purchase Receipt
-
-Purchase Receipt digunakan untuk mencatat bahwa barang telah diterima oleh perusahaan.
-
-Hasil yang terjadi:
-
-- Barang masuk ke Warehouse.
-- Quantity stok bertambah.
-- Persediaan perusahaan bertambah.
-
-Status akun berubah dari:
-
-```
-Stock Received But Not Billed
-↓
-Stock In Hand
-```
-
-Artinya persediaan tersebut sudah menjadi aset perusahaan.
-
----
-
-## Pengaruh terhadap Laporan Keuangan
-
-Pada Balance Sheet terjadi perubahan pada aset perusahaan.
-
-- Uang perusahaan berkurang karena pembayaran supplier.
-- Persediaan barang bertambah sebagai aset perusahaan.
-
----
-
-## Catatan
-
-### Purchase Order (PO)
-
-Merupakan surat pemesanan barang kepada supplier.
-
-### Purchase Invoice (PI)
-
-Merupakan tagihan dari supplier kepada perusahaan.
-
-### Status Unpaid
-
-Menunjukkan invoice sudah diterima tetapi belum dibayar.
-
-### Payment Entry
-
-Digunakan untuk melakukan pembayaran kepada supplier sehingga status Purchase Invoice berubah menjadi **Paid**.
-
-### Purchase Receipt
-
-Menjadi bukti bahwa barang telah diterima perusahaan dan stok barang otomatis bertambah.
-
----
-
-## Ringkasan Pembelajaran
-
-Pada Chapter 2 mempelajari proses pembelian (Buying Cycle) pada ERPNext, dimulai dari membuat Purchase Order (PO), membuat Purchase Invoice (PI), melakukan Payment Entry untuk melunasi tagihan supplier, hingga membuat Purchase Receipt sebagai bukti penerimaan barang. Setelah seluruh proses selesai, transaksi akan tercatat secara otomatis pada laporan keuangan seperti:
-
-- General Ledger
-- Trial Balance
-- Balance Sheet
-- Profit & Loss
-
-Sehingga seluruh transaksi pembelian dapat terdokumentasi dengan benar dan memengaruhi laporan keuangan perusahaan secara otomatis.
-# Chapter 3 - Selling
-
-## Tujuan
-
-Mempelajari alur penjualan (Selling Cycle) pada ERPNext, mulai dari membuat Customer, memberikan penawaran (Quotation), membuat Sales Order, membuat Sales Invoice, menerima pembayaran, mengirim barang, hingga melihat pengaruh transaksi terhadap laporan keuangan.
-
----
-
-## Alur Selling
-
-Customer
-↓
-Quotation
-↓
-Sales Order
-↓
-Sales Invoice
-↓
-Payment Entry
-↓
-Delivery Note
-↓
-Review Laporan
-
----
-
-## Materi yang Dipelajari
-
-### 1. Customer
-
-Customer merupakan pihak yang membeli barang dari perusahaan.
-
-Yang dilakukan:
-
-- Membuat data Customer.
-- Menyimpan informasi customer yang akan melakukan transaksi.
-
----
-
-### 2. Quotation
-
-Quotation merupakan dokumen penawaran harga kepada customer.
-
-Yang dilakukan:
-
-- Membuat Quotation.
-- Menentukan barang dan harga yang ditawarkan kepada customer.
-
----
-
-### 3. Sales Order
-
-Sales Order merupakan dokumen yang mencatat pesanan dari customer.
-
-Yang dipelajari:
-
-- Data Sales Order dapat dibuat dari Quotation sehingga tidak perlu memasukkan data barang dari awal.
-- Sales Order menjadi dasar proses penjualan berikutnya.
-
----
-
-### 4. Sales Invoice
-
-Sales Invoice merupakan tagihan yang diberikan kepada customer.
-
-Pencatatan akuntansi yang terjadi:
-
-Debit
-
-- Piutang Customer
-
-Kredit
-
-- Penjualan
-
-Contoh:
-
-```
-Debit  : Piutang Customer   Rp15.000.000
-Kredit : Penjualan          Rp15.000.000
-```
-
-Sales Invoice menandakan perusahaan telah melakukan penjualan kepada customer.
-
----
-
-### 5. Payment Entry
-
-Payment Entry digunakan untuk menerima pembayaran dari customer.
-
-Payment Type yang digunakan:
-
-- Receive
-
-Setelah Payment Entry disubmit:
-
-```
-Status Sales Invoice
-
-Unpaid → Paid
-```
-
----
-
-### 6. Delivery Note
-
-Delivery Note digunakan untuk mencatat proses pengiriman barang kepada customer.
-
-Yang terjadi setelah Delivery Note dibuat:
-
-- Barang keluar dari gudang.
-- Stok barang berkurang sesuai jumlah yang dikirim.
-- Nilai persediaan berpindah menjadi Harga Pokok Penjualan (HPP).
-
----
-
-## Review Laporan
-
-Setelah seluruh transaksi selesai, dilakukan pengecekan pada laporan keuangan.
-
-Laporan yang ditinjau:
-
-- Profit & Loss
-- Trial Balance
-- Balance Sheet
-
-Contoh hasil laporan:
-
-### Profit & Loss
-
-- Pendapatan : Rp15.000.000
-- Harga Pokok Penjualan (HPP) : Rp10.000.000
-- Biaya Lain (contoh: sewa kantor) : Rp500.000
-- Profit : Rp4.500.000
-
-### Trial Balance
-
-- Total Debit : Rp25.500.000
-- Total Kredit : Rp25.500.000
-
-### Balance Sheet
-
-- Profit : Rp4.500.000
-
----
-
-## Catatan
-
-### Quotation
-
-Merupakan penawaran harga kepada customer.
-
-### Sales Order
-
-Merupakan dokumen pesanan dari customer.
-
-### Sales Invoice
-
-Merupakan tagihan yang diberikan kepada customer.
-
-### Payment Entry (Receive)
-
-Digunakan untuk menerima pembayaran dari customer.
-
-### Delivery Note
-
-Digunakan sebagai bukti bahwa barang telah dikirim kepada customer.
-
-### Profit & Loss
-
-Menampilkan laporan laba atau rugi perusahaan.
-
-### Stock Ledger
-
-Menampilkan riwayat pergerakan stok barang.
-
----
-
-## Ringkasan Pembelajaran
-
-Pada Chapter 3 mempelajari proses penjualan barang menggunakan ERPNext. Proses dimulai dari membuat Customer, kemudian membuat Quotation sebagai penawaran harga, dilanjutkan dengan Sales Order, Sales Invoice, menerima pembayaran melalui Payment Entry, dan mengirim barang menggunakan Delivery Note. Setelah seluruh proses selesai, dilakukan pengecekan laporan keuangan melalui Profit & Loss, Trial Balance, dan Balance Sheet untuk memastikan transaksi telah tercatat dengan benar.
-
-# Chapter 4 - Cost Center & Project
-
-## Tujuan
-
-Mempelajari penggunaan **Cost Center** dan **Project** pada ERPNext untuk mengelompokkan transaksi sehingga pendapatan dan biaya dapat dipantau berdasarkan divisi maupun proyek tertentu.
-
----
-
-## Materi yang Dipelajari
-
-### Cost Center
-
-Cost Center digunakan untuk mengelompokkan transaksi berdasarkan divisi atau bagian tertentu dalam perusahaan.
-
-Contoh:
-
-```
-Sales1 - PTE
-```
-
-Digunakan agar transaksi penjualan maupun pembelian dapat dipantau melalui laporan keuangan.
-
----
-
-### Project
-
-Project digunakan untuk mengelompokkan transaksi berdasarkan suatu proyek tertentu.
-
-Contoh:
-
-```
-Project2
-```
-
-Dengan Project, seluruh transaksi yang berkaitan dengan proyek dapat dilihat pada laporan keuangan.
-
----
-
-## Membuat Cost Center
-
-Langkah yang dilakukan:
-
-- Search
-- Cost Center
-- Add Cost Center
-
----
-
-## Membuat Project
-
-Langkah yang dilakukan:
-
-- Search
-- Project
-- Add Project
-
----
-
-## Alur Transaksi
-
-Cost Center & Project
-
-↓
-
-Purchase Order
-
-↓
-
-Purchase Receipt
-
-↓
-
-Purchase Invoice
-
-↓
-
-Payment Entry
-
-↓
-
-Sales Order
-
-↓
-
-Delivery Note
-
-↓
-
-Sales Invoice
-
-↓
-
-Payment Entry
-
-↓
-
-Review Laporan Keuangan
-
----
-
-## Buying
-
-### 1. Membuat Supplier
-
-Membuat data supplier sebagai pihak yang menjual barang kepada perusahaan.
-
----
-
-### 2. Purchase Order
-
-Membuat Purchase Order dan memastikan bagian **Accounting** menggunakan:
-
-- Cost Center : Sales1 - PTE
-- Project : Project2
-
----
-
-### 3. Purchase Receipt
-
-Mencatat barang yang diterima perusahaan.
-
-Yang dicek:
-
-- Warehouse : Stores - PTE
-- Accounting
-- Cost Center
-- Project
-
----
-
-### 4. Purchase Invoice
-
-Membuat Purchase Invoice dan memastikan bagian Accounting menggunakan:
-
-- Cost Center : Sales1 - PTE
-- Project : Project2
-
----
-
-### 5. Payment Entry
-
-Melakukan pembayaran kepada supplier.
-
-Pengaturan:
-
-- Paid From : HSBC
-- Reference Type : Purchase Invoice
-
----
-
-## Selling
-
-### 1. Customer
-
-Membuat data Customer.
-
----
-
-### 2. Sales Order
-
-Membuat Sales Order dan memastikan Accounting menggunakan:
-
-- Cost Center : Sales1 - PTE
-- Project : Project2
-
----
-
-### 3. Delivery Note
-
-Membuat Delivery Note.
-
-Yang dicek:
-
-- Warehouse : Stores - PTE
-- Cost Center
-- Project
-
----
-
-### 4. Sales Invoice
-
-Membuat Sales Invoice dan memastikan Accounting menggunakan:
-
-- Cost Center : Sales1 - PTE
-- Project : Project2
-
----
-
-### 5. Payment Entry
-
-Menerima pembayaran dari customer.
-
-Pengaturan:
-
-- Paid To : HSBC - PTE
-
----
-
-## Review Laporan Keuangan
-
-Setelah seluruh transaksi Buying dan Selling selesai, dilakukan pengecekan laporan keuangan dengan filter:
-
-- Cost Center : Sales1 - PTE
-- Project : Project2
-
-Hasil laporan menunjukkan nilai transaksi sebesar **Rp3.000.000**, sehingga transaksi berhasil dicatat dan dipisahkan berdasarkan Cost Center dan Project yang digunakan.
-
----
-
-## Catatan
-
-Pada Chapter 4 mempelajari penggunaan **Cost Center** dan **Project** untuk memisahkan serta melacak transaksi perusahaan.
-
-Pada proses pengujian digunakan:
-
-- Cost Center : Sales1 - PTE
-- Project : Project2
-
-Keduanya diterapkan pada seluruh proses Buying dan Selling, mulai dari Purchase Order hingga Sales Invoice. Setelah seluruh transaksi selesai, laporan keuangan dapat difilter berdasarkan Cost Center dan Project sehingga setiap transaksi dapat dipantau sesuai divisi maupun proyek yang dipilih.
-
----
-
-## Ringkasan Pembelajaran
-
-Pada Chapter 4 mempelajari cara membuat dan menggunakan Cost Center serta Project pada ERPNext. Fitur ini digunakan untuk mengelompokkan transaksi pembelian dan penjualan sehingga laporan keuangan dapat dianalisis berdasarkan divisi maupun proyek tertentu. Seluruh transaksi berhasil tercatat dan dapat ditampilkan melalui filter Cost Center dan Project pada laporan keuangan.
-
-# Chapter 5 - Letter Head & Custom Print Format
-
-## Tujuan
-
-Mempelajari cara mengatur dan menyesuaikan tampilan dokumen pada ERPNext menggunakan **Letter Head** dan **Custom Print Format** sehingga dokumen yang dicetak memiliki identitas perusahaan dan format yang sesuai kebutuhan.
-
----
-
-## Materi yang Dipelajari
-
-### 1. Letter Head
-
-Letter Head digunakan untuk menampilkan identitas resmi perusahaan pada dokumen ERPNext.
-
-Informasi yang dapat ditampilkan antara lain:
-
-- Logo perusahaan
-- Nama perusahaan
-- Nomor telepon
-- Email
-- Alamat perusahaan
-
-Letter Head dapat digunakan pada berbagai dokumen ERPNext seperti:
-
-- Sales Invoice
-- Purchase Invoice
-- Quotation
-- Delivery Note
-- Dokumen lainnya
-
----
-
-### 2. Print Format
-
-Print Format digunakan untuk mengatur tampilan dokumen yang akan dicetak atau disimpan menjadi PDF.
-
-Dengan Print Format, informasi yang ditampilkan pada dokumen dapat disesuaikan dengan kebutuhan perusahaan.
-
----
-
-## Alur Pengujian
-
-### 1. Menggunakan Sales Invoice
-
-Menggunakan Sales Invoice yang telah dibuat pada chapter sebelumnya sebagai dokumen uji untuk melihat perubahan tampilan tanpa perlu membuat transaksi baru.
-
----
-
-### 2. Membuat Letter Head
-
-Membuat Letter Head dengan nama:
-
-```
-PT Testing ERP Letter Head
-```
-
-Letter Head digunakan sebagai identitas resmi perusahaan pada dokumen ERPNext.
-
----
-
-### 3. Membuat Footer Menggunakan HTML
-
-Membuat footer menggunakan HTML pada bagian bawah dokumen.
-
-Contoh informasi yang ditampilkan:
-
-- Nama perusahaan
-- Nomor telepon
-- Email
-- Alamat perusahaan
-
-Penggunaan HTML memungkinkan pengaturan:
-
-- Posisi teks
-- Ukuran teks
-- Warna
-- Format tampilan
-
-Sehingga footer terlihat lebih rapi dan sesuai kebutuhan.
-
----
-
-### 4. Membuat Custom Print Format
-
-Membuat Print Format baru.
-
-Konfigurasi yang digunakan:
-
-- Print Format Name : Custom Sales Invoice
-- DocType : Sales Invoice
-- Module : Accounts
-- Default Print Language : English
-
-Custom Print Format digunakan untuk membuat tampilan Sales Invoice tanpa mengubah Print Format bawaan ERPNext.
-
----
-
-### 5. Mengubah Judul Dokumen
-
-Mengubah heading dokumen dari:
-
-```
-Sales Invoice
-```
-
-menjadi
-
-```
-Customer Invoice
-```
-
-Tujuannya agar nama dokumen sesuai dengan kebutuhan perusahaan.
-
----
-
-### 6. Menghapus Field yang Tidak Diperlukan
-
-Melakukan penyederhanaan tampilan invoice dengan menghapus field yang tidak diperlukan.
-
-Field yang dipertahankan:
-
-- Customer Name
-- Posting Date
-- Payment Due Date
-- Cost Center
-- Items
-- Total Quantity
-- Total
-- Grand Total
-- Rounded Total
-- In Words
-
-Tujuannya agar invoice menjadi lebih sederhana, rapi, dan hanya menampilkan informasi yang diperlukan.
-
----
-
-### 7. Menggunakan Custom Print Format
-
-Setelah Custom Print Format selesai dibuat, Sales Invoice dibuka kembali kemudian pada bagian **Print Format** dipilih:
-
-```
-Custom Sales Invoice
-```
-
-Letter Head yang digunakan:
-
-```
-PT Testing ERP Letter Head
-```
-
----
-
-### 8. Pengecekan Akhir
-
-Melakukan Print Preview untuk memastikan seluruh perubahan berhasil diterapkan.
-
-Yang diperiksa:
-
-- Letter Head tampil dengan benar.
-- Footer HTML tampil pada bagian bawah dokumen.
-- Heading berubah menjadi **Customer Invoice**.
-- Field yang tidak diperlukan berhasil dihapus.
-- Data customer tetap tampil.
-- Posting Date dan Payment Due Date tampil.
-- Cost Center tampil.
-- Data Item tampil.
-- Total transaksi tampil.
-- Footer perusahaan muncul sesuai HTML yang dibuat.
-
----
-
-## Hasil
-
-Custom Print Format berhasil diterapkan pada Sales Invoice.
-
-Hasil Print Preview menunjukkan:
-
-- Judul dokumen berubah menjadi **Customer Invoice**.
-- Data Customer tetap tampil.
-- Posting Date dan Payment Due Date tampil.
-- Cost Center tampil.
-- Data Item tampil.
-- Total transaksi tampil.
-- Footer perusahaan berhasil muncul sesuai HTML yang dibuat.
-
----
-
-## Ringkasan Pembelajaran
-
-Pada Chapter 5 mempelajari cara membuat **Letter Head** dan **Custom Print Format** pada ERPNext. Proses dimulai dengan membuat identitas perusahaan menggunakan Letter Head, kemudian membuat footer menggunakan HTML, membuat Custom Print Format khusus untuk Sales Invoice, mengubah judul dokumen, menghapus field yang tidak diperlukan, hingga melakukan Print Preview. Hasil akhirnya adalah Sales Invoice memiliki tampilan yang lebih rapi, sesuai identitas perusahaan, dan memenuhi kebutuhan perusahaan tanpa mengubah Print Format bawaan ERPNext.
-
-# Chapter 6 - Purchase Cycle
-
-## Tujuan
-
-Mempelajari alur lengkap proses pembelian barang pada ERPNext mulai dari pembuatan Item, Purchase Order, penerimaan barang, pembayaran kepada supplier, hingga pengecekan transaksi pada laporan.
-
----
-
-## Purchase Cycle
-
-Purchase Cycle merupakan proses pembelian barang dari supplier yang meliputi:
-
-- Pemesanan barang
-- Penerimaan barang
-- Pencatatan tagihan
-- Pembayaran kepada supplier
-- Pengecekan transaksi pada laporan
-
----
-
-## Alur Purchase Cycle
-
-Item
-
-↓
-
-Purchase Order
-
-↓
-
-Purchase Receipt
-
-↓
-
-Stock Ledger
-
-↓
-
-Purchase Invoice
-
-↓
-
-Payment Entry
-
-↓
-
-General Ledger
-
----
-
-## Studi Kasus
-
-Melakukan pembelian:
-
-- Supplier : Supplier1
-- Item : ITEM02 (Pensil)
-- Quantity : 10 unit
-- Harga : Rp10.000 / unit
-- Total Pembelian : Rp100.000
-
----
-
-## Membuat Item
-
-Membuat data item yang akan digunakan pada transaksi ERPNext.
-
-Data yang digunakan:
-
-- Item Code : ITEM02
-- Item Name : Pensil
-- Item Group : Products
-
-Item yang dibuat akan digunakan sebagai stok dan dapat digunakan pada seluruh transaksi ERPNext.
-
----
-
-## Purchase Order
-
-Membuat Purchase Order kepada Supplier.
-
-Data yang digunakan:
-
-- Supplier : Supplier1
-- Item : ITEM02 - Pensil
-- Quantity : 10
-- Rate : Rp10.000
-- Total : Rp100.000
-
----
-
-## Purchase Receipt
-
-Mencatat bahwa barang dari supplier telah diterima.
-
-Data transaksi:
-
-- Supplier : Supplier1
-- Accepted Quantity : 10
-- Item : ITEM02 - Pensil
-- Warehouse : Stores - PTE
-- Grand Total : Rp100.000
-
----
-
-## Stock Ledger
-
-Melakukan pengecekan Stock Ledger untuk melihat riwayat pergerakan stok barang.
-
-Hasil pengujian menunjukkan stok ITEM02 bertambah sebanyak 10 unit setelah Purchase Receipt dilakukan.
-
----
-
-## Purchase Invoice
-
-Membuat Purchase Invoice sebagai tagihan dari supplier.
-
----
-
-## Payment Entry
-
-Melakukan pembayaran kepada supplier.
-
----
-
-## General Ledger
-
-Melakukan pengecekan General Ledger untuk memastikan seluruh transaksi Purchase Receipt, Purchase Invoice, dan Payment Entry telah tercatat dengan benar.
-
----
-
-## Ringkasan Pembelajaran
-
-Pada Chapter 6 mempelajari proses Purchase Cycle pada ERPNext mulai dari membuat Item, Purchase Order, Purchase Receipt, Purchase Invoice, Payment Entry hingga pengecekan Stock Ledger dan General Ledger. Seluruh transaksi berhasil tercatat sehingga stok barang dan laporan keuangan diperbarui secara otomatis.
-
----
-
-# Chapter 7 - Batch Management
-
-## Tujuan
-
-Mempelajari penggunaan fitur Batch Management pada ERPNext untuk mencatat dan melacak pergerakan stok barang berdasarkan Batch Number.
-
----
-
-## Batch Management
-
-Batch Management digunakan untuk:
-
-- Mengelompokkan barang berdasarkan batch tertentu.
-- Melacak pergerakan stok.
-- Digunakan pada produk yang memiliki tanggal kedaluwarsa, seperti obat-obatan dan makanan.
-
----
-
-## Langkah Pengujian
-
-### Membuat Item Baru
-
-Data item:
-
-- Item Code : ITEM03
-- Item Name : Panadol Extra
-- Item Group : Products
-
-Mengaktifkan fitur:
-
-- Has Batch No
-- Maintain Stock
-
----
-
-### Membuat Batch Baru
-
-Contoh Batch:
-
-- BATCH-ITEM03-001
-
----
-
-### Purchase Receipt
-
-Menerima barang ke:
-
-- Warehouse : Stores - PTE
-
----
-
-### Purchase Invoice
-
-Status:
-
-- Unpaid
-
----
-
-### Payment Entry
-
-Data:
-
-- Payment Type : Pay
-- Party : Supplier
-
----
-
-### Stock Ledger
-
-Melakukan filter berdasarkan:
-
-- Item : ITEM03
-- Batch : BATCH-ITEM03-001
-
----
-
-### Delivery Note
-
-Membuat Delivery Note untuk proses pengiriman barang.
-
----
-
-### Sales Invoice
-
-Status:
-
-- Unpaid
-
----
-
-### Payment Entry
-
-Status:
-
-- Paid
-
----
-
-### Stock Ledger
-
-Melakukan pengecekan kembali Stock Ledger untuk memastikan pergerakan stok berdasarkan Batch Number.
-
----
-
-## Ringkasan Pembelajaran
-
-Pada Chapter 7 dilakukan pengujian Batch Management pada ERPNext untuk mencatat dan melacak pergerakan stok berdasarkan Batch Number sehingga setiap batch barang dapat dipantau secara terpisah.
-
----
-
-# Chapter 8 - POS Profile
-
-## Tujuan
-
-Mempelajari proses transaksi menggunakan Point of Sale (POS) pada ERPNext.
-
 ---
 
-## POS Profile
+## 📌 Chapter 1 - Accounting
 
-POS digunakan untuk melakukan transaksi penjualan secara langsung kepada pelanggan, seperti sistem kasir pada minimarket, toko, apotek, maupun restoran.
+### Tujuan
+Mempelajari dasar penggunaan ERPNext pada modul Accounting, mulai dari pembuatan perusahaan, penyusunan *Chart of Accounts*, pencatatan transaksi menggunakan *Journal Entry*, hingga melihat laporan keuangan.
 
-Berbeda dengan proses penjualan biasa, pada POS transaksi dilakukan lebih cepat karena pelanggan langsung memilih barang, melakukan pembayaran, menerima barang, dan transaksi selesai.
+### Materi yang Dipelajari
 
----
-
-## Proses Pengujian
-
-Melakukan pengujian mulai dari:
-
-- Membuat POS Profile
-- POS Opening Entry
-- Transaksi Penjualan
-- POS Closing Entry
-
----
-
-### Membuat POS Profile
-
-Konfigurasi:
-
-- Warehouse : Stores - PTE
-- User : Administrator
-- Price List : Standard
-- Mode Pembayaran : Cash
-
----
-
-### POS Opening Entry
-
-Data:
-
-- Cashier : Administrator
-- Opening Amount : Rp1.000.000
-
----
-
-### Melakukan Transaksi POS
-
-Melakukan transaksi menggunakan:
-
-- Item : Panadol
-- Quantity : 3
-- Payment : Cash
-
-POS digunakan sebagai halaman kasir untuk menerima pembayaran pelanggan.
-
----
-
-### POS Invoice
-
-ERPNext secara otomatis membuat POS Invoice sebagai bukti transaksi.
-
-Perbedaan:
-
-- Sales Invoice : Unpaid sebelum pembayaran.
-- POS Invoice : Langsung Paid karena pembayaran dilakukan saat transaksi berlangsung.
-
----
-
-### POS Closing Entry
-
-Digunakan untuk menutup sesi kasir.
-
-Fungsi:
-
-- Menampilkan seluruh transaksi selama sesi POS.
-- Melakukan pengecekan transaksi sejak POS Opening dibuat.
-
----
-
-### Payment Reconciliation
-
-Perhitungan:
-
-- Opening Amount : Rp1.000.000
-- Penjualan POS : Rp45.000
-- Closing Amount : Rp1.045.000
-- Difference : Rp0
-
-Tidak terdapat selisih kas.
-
----
-
-## Ringkasan Pembelajaran
-
-Pada Chapter 8 mempelajari proses transaksi menggunakan Point of Sale mulai dari membuat POS Profile, membuka sesi kasir, melakukan transaksi penjualan, membuat POS Invoice, hingga menutup sesi kasir dan melakukan pengecekan saldo kas.
-
----
-
-# Chapter 9 - Batch Number pada POS
-
-## Tujuan
-
-Mempelajari penggunaan Batch Number pada transaksi Point of Sale.
-
----
-
-## Batch Number
-
-Batch Number merupakan identitas kelompok barang yang digunakan untuk membedakan stok dari produk yang sama tetapi berasal dari batch yang berbeda.
-
-Umumnya digunakan pada produk yang memiliki tanggal kedaluwarsa, seperti makanan dan obat-obatan.
-
----
-
-## Langkah Pengujian
-
-- Membuat Batch kedua.
-- Melakukan Purchase Receipt.
-- Membuka POS Opening Entry.
-- Melakukan transaksi POS.
-- Checkout.
-- Complete Order.
-- Membuat POS Closing Entry.
-
----
-
-## Hasil
-
-Closing:
-
-- Opening Amount : Rp1.000.000
-- Penjualan : Rp45.000
-- Closing Amount : Rp1.045.000
-- Difference : Rp0
-
----
-
-## Catatan
+#### 1. ERPNext
+ERPNext adalah software *Enterprise Resource Planning* (ERP) yang digunakan untuk membantu perusahaan mengelola seluruh proses bisnis dalam satu sistem terintegrasi, seperti:
+* Pembelian (*Buying*)
+* Penjualan (*Selling*)
+* Persediaan (*Stock*)
+* Keuangan (*Accounting*)
 
-ERPNext memiliki keterbatasan dalam penggunaan barcode batch karena scanner belum dapat langsung membedakan batch hanya berdasarkan barcode produk.
+#### 2. Membuat Company
+Membuat perusahaan dengan nama: **PT. Testing ERP**
 
-Solusinya adalah melakukan customisasi barcode yang menggabungkan informasi Item dengan Batch.
+#### 3. Chart of Accounts (COA)
+*Chart of Accounts* merupakan daftar seluruh akun akuntansi yang digunakan perusahaan untuk mencatat transaksi. Kategori akun yang dipelajari meliputi: **Asset, Liability, Equity, Expense, dan Income**.
+* **Contoh akun yang dibuat:** `HSBC` (Asset - Bank), `John` (Equity), `Mary` (Equity).
+> **Catatan:** Semua transaksi akuntansi wajib menggunakan akun-akun yang terdaftar pada Chart of Accounts.
 
----
-
-## Ringkasan Pembelajaran
-
-Pada Chapter 9 mempelajari penggunaan Batch Number pada transaksi Point of Sale untuk membedakan stok barang berdasarkan kelompok batch sehingga pergerakan barang lebih mudah dilacak.
-
----
-
-# Chapter 10 - Users, Roles & Permission
-
-## Tujuan
-
-Mempelajari pengelolaan User, Role, dan Permission pada ERPNext.
-
----
-
-## Konsep
-
-- User : akun yang digunakan untuk masuk ke sistem.
-- Role : jabatan atau fungsi user.
-- Permission : hak akses yang dimiliki user.
-
-Tujuan Permission adalah membatasi akses sesuai tugas dan tanggung jawab masing-masing pengguna.
-
----
-
-## Langkah Pengujian
+#### 4. Bank Account
+Membuat rekening perusahaan menggunakan akun `HSBC`. Bank Account ini digunakan sebagai rekening resmi perusahaan untuk menerima maupun melakukan pembayaran.
 
-### Membuat User Baru
+#### 5. Journal Entry
+*Journal Entry* digunakan untuk mencatat seluruh transaksi akuntansi ke dalam sistem ERPNext. 
+* **Contoh transaksi:** Menyetor modal investor dan mencatat biaya sewa kantor.
+* Pencatatan menggunakan prinsip **Double Entry**: $\text{Total Debit} = \text{Total Kredit}$.
 
-Data:
+### Laporan Keuangan yang Dipelajari
+* **Trial Balance:** Digunakan untuk memastikan keseimbangan pencatatan akuntansi (Menampilkan semua akun, Total Debit, dan Total Kredit).
+* **Balance Sheet:** Digunakan untuk melihat posisi keuangan perusahaan (Menampilkan Asset, Liability, dan Equity).
+* **Profit & Loss:** Digunakan untuk melihat laba atau rugi perusahaan (Menampilkan Income dan Expense).
+* **General Ledger:** Kumpulan seluruh transaksi jurnal yang telah dicatat (Menampilkan tanggal transaksi, akun, debit, kredit, dan saldo).
 
-- Nama : Tony
-- Email : Tony@Testing.com
+### 💡 Catatan Penting
+* `John` dan `Mary` merupakan akun **Equity (Modal)** karena berperan sebagai investor yang menyetor modal awal.
+* `HSBC` termasuk akun **Asset**, karena merupakan rekening bank yang menyimpan aset perusahaan.
+* Aturan saldo normal akun Asset:
+  * Asset bertambah $\rightarrow$ **Debit**
+  * Asset berkurang $\rightarrow$ **Kredit**
 
-Mengatur password untuk user tersebut.
+### Hasil Pembelajaran
+Pada Chapter 1 ini, saya telah berhasil mempraktikkan: pembuatan Company, pemahaman COA, pembuatan akun Shareholder & Bank Account, pencatatan Journal Entry, hingga analisis laporan keuangan (*Trial Balance, Balance Sheet, Profit & Loss,* dan *General Ledger*).
 
 ---
 
-### Memberikan Role
+## 📌 Chapter 2 - Buying
 
-Role yang diberikan:
+### Tujuan
+Mempelajari alur pembelian (*Buying Cycle*) pada ERPNext, mulai dari membuat *Purchase Order* hingga barang diterima dan transaksi tercatat pada laporan keuangan.
 
-- Sales User
+### Alur Buying
+$$\text{Purchase Order (PO)} \rightarrow \text{Purchase Invoice (PI)} \rightarrow \text{Payment Entry} \rightarrow \text{Purchase Receipt} \rightarrow \text{Laporan Keuangan}$$
 
-Role ini digunakan oleh pengguna yang bekerja pada bagian penjualan.
+### Materi yang Dipelajari
 
----
-
-### Menguji Hak Akses
-
-Melakukan pengujian pada menu:
-
-Selling → Quotation
+#### 1. Purchase Order (PO)
+Dokumen pemesanan barang yang dikirim perusahaan kepada supplier. Langkahnya meliputi pembuatan data Supplier, membuat PO, dan menentukan barang yang akan dipesan.
 
-User Tony dapat:
+#### 2. Purchase Invoice (PI)
+Tagihan dari supplier kepada perusahaan atas barang yang telah dipesan.
+* Data PI dapat ditarik otomatis dari PO menggunakan fitur **Get Items From**.
+* Setelah PI dibuat, akan muncul akun sementara: `Stock Received But Not Billed`.
+* **Artinya:** Barang sudah diterima, namun invoice masih berstatus *Unpaid* (belum dibayar).
 
-- Membuka Quotation List
-- Membuat Quotation
-- Memilih Customer
-- Menambahkan Item
-- Menyimpan Quotation
+#### 3. Payment Entry
+Digunakan untuk melunasi tagihan kepada supplier. Data yang diisi meliputi: *Payment Type, Party Type, Mode of Payment, Bank,* dan *Reference*. Setelah disubmit, status *Purchase Invoice* berubah dari **Unpaid $\rightarrow$ Paid**.
 
----
-
-### Menguji Pembatasan Hak Akses
+#### 4. Purchase Receipt
+Dokumen bukti bahwa barang telah diterima fisik oleh perusahaan. Akibatnya:
+* Barang masuk ke Warehouse dan quantity stok bertambah (Persediaan bertambah).
+* Status akun berubah dari: `Stock Received But Not Billed` $\rightarrow$ `Stock In Hand` (Persediaan resmi menjadi aset perusahaan).
 
-Saat mencoba membuka User List milik Administrator muncul pesan:
+### Pengaruh terhadap Laporan Keuangan
+Pada **Balance Sheet** terjadi penyesuaian aset: Uang perusahaan berkurang (akibat kas keluar pada *Payment Entry*), namun persediaan barang bertambah sebagai aset baru (*Stock In Hand*).
 
-```
-Not Permitted
-```
+### Hasil Pembelajaran
+Menguasai siklus *end-to-end* proses pembelian pada ERPNext (PO $\rightarrow$ PI $\rightarrow$ Payment $\rightarrow$ Receipt) serta memahami bagaimana transaksi tersebut otomatis memperbarui *General Ledger, Trial Balance, Balance Sheet,* dan *Profit & Loss*.
 
-Artinya user hanya dapat mengakses fitur sesuai Role yang dimiliki.
-
 ---
-
-## Ringkasan Pembelajaran
 
-Pada Chapter 10 mempelajari pengelolaan User, Role, dan Permission sehingga setiap pengguna hanya memiliki hak akses sesuai pekerjaan masing-masing.
+## 📌 Chapter 3 - Selling
 
----
-
-# Chapter 11 - Role Permission Manager
+### Tujuan
+Mempelajari alur penjualan (*Selling Cycle*) pada ERPNext, mulai dari pembuatan Customer, penawaran harga (*Quotation*), pembuatan *Sales Order*, *Sales Invoice*, penerimaan pembayaran, pengiriman barang, hingga analisis pengaruhnya ke laporan keuangan.
 
-## Tujuan
+### Alur Selling
+$$\text{Customer} \rightarrow \text{Quotation} \rightarrow \text{Sales Order} \rightarrow \text{Sales Invoice} \rightarrow \text{Payment Entry} \rightarrow \text{Delivery Note} \rightarrow \text{Review Laporan}$$
 
-Mempelajari pengaturan hak akses secara lebih rinci menggunakan Role Permission Manager.
+### Materi yang Dipelajari
 
----
+#### 1. Customer & Quotation
+* **Customer:** Membuat dan menyimpan data pihak yang akan membeli barang.
+* **Quotation:** Membuat dokumen penawaran harga dan barang yang ditawarkan ke customer.
 
-## Materi
+#### 2. Sales Order (SO) & Sales Invoice (SI)
+* **Sales Order:** Mencatat pesanan resmi dari customer (dibuat langsung dari data *Quotation* agar efisien).
+* **Sales Invoice:** Dokumen tagihan resmi kepada customer. Transaksi ini mencatat jurnal akuntansi:
+  * **Debit:** Piutang Customer (e.g., Rp15.000.000)
+  * **Kredit:** Penjualan (e.g., Rp15.000.000)
 
-Role Permission Manager digunakan untuk menentukan tindakan yang boleh dilakukan oleh setiap Role.
+#### 3. Payment Entry & Delivery Note
+* **Payment Entry:** Menerima pembayaran menggunakan tipe *Receive*. Mengubah status SI dari **Unpaid $\rightarrow$ Paid**.
+* **Delivery Note:** Mencatat proses pengiriman fisik barang. Setelah disubmit, stok di gudang akan berkurang dan nilai persediaan akan diakui sebagai Harga Pokok Penjualan (HPP).
 
-Contoh:
+### Simulasi Hasil Laporan Keuangan
+* **Profit & Loss:** 
+  * Pendapatan: Rp15.000.000
+  * HPP: Rp10.000.000
+  * Biaya Lain (Sewa): Rp500.000
+  * **Net Profit: Rp4.500.000**
+* **Trial Balance:** Total Debit & Kredit seimbang di Rp25.500.000.
+* **Balance Sheet:** Menampilkan akumulasi Profit sebesar Rp4.500.000.
 
-Staff Sales Junior dapat membuat dan mengedit Quotation, tetapi tidak dapat melakukan Submit atau Delete.
+### Hasil Pembelajaran
+Memahami siklus penjualan lengkap di ERPNext beserta dampaknya pada pengurangan stok di *Stock Ledger* serta pengakuan pendapatan dan HPP di laporan *Profit & Loss*.
 
 ---
-
-## Jenis Permission
 
-Permission yang tersedia:
+## 📌 Chapter 4 - Cost Center & Project
 
-- Read
-- Write
-- Create
-- Delete
-- Submit
-- Cancel
-- Amend
-- Print
+### Tujuan
+Mempelajari penggunaan **Cost Center** dan **Project** pada ERPNext untuk mengelompokkan transaksi sehingga pendapatan dan biaya dapat dipantau secara spesifik per divisi maupun per proyek.
 
----
-
-## Pengujian
+### Konsep Dasar
+* **Cost Center:** Mengelompokkan transaksi berdasarkan divisi/bagian internal perusahaan (Contoh: `Sales1 - PTE`).
+* **Project:** Mengelompokkan transaksi berdasarkan proyek tertentu eksternal/internal (Contoh: `Project2`).
 
-Role Sales User diberikan hak:
+### Alur Implementasi
+$$\text{Setup Cost Center \& Project} \rightarrow \text{Buying Cycle (Tagging Project \& CC)} \rightarrow \text{Selling Cycle (Tagging Project \& CC)} \rightarrow \text{Filter Laporan Keuangan}$$
 
-- Read
-- Write
-- Create
+### Detail Pengujian (Buying & Selling)
+1. **Saat Pemelian (Buying):** Pada *Purchase Order*, *Purchase Receipt*, dan *Purchase Invoice*, kolom *Accounting* wajib di-tag ke Cost Center: `Sales1 - PTE` dan Project: `Project2`.
+2. **Saat Penjualan (Selling):** Pada *Sales Order*, *Delivery Note*, dan *Sales Invoice*, filter yang sama diterapkan agar biaya HPP dan Pendapatan masuk ke kantong yang sama.
 
-Hak yang dibatasi:
+### Review Laporan Keuangan
+Setelah seluruh transaksi selesai, laporan keuangan (*Profit & Loss* / *Balance Sheet*) difilter berdasarkan Cost Center: `Sales1 - PTE` dan Project: `Project2`. Hasilnya, nilai transaksi (sebesar Rp3.000.000) berhasil terisolasi dan terdokumentasi khusus untuk divisi & proyek tersebut.
 
-- Delete
-- Submit
-- Cancel
-- Amend
-
 ---
-
-## Hasil
 
-Saat login sebagai Tony:
+## 📌 Chapter 5 - Letter Head & Custom Print Format
 
-- Masih dapat membuat Quotation.
-- Masih dapat mengedit Quotation.
-- Tidak dapat Delete.
-- Tidak dapat Submit.
-- Tidak dapat Cancel.
-- Tidak dapat Amend.
+### Tujuan
+Mempelajari cara mengatur dan menyesuaikan tampilan cetak dokumen pada ERPNext menggunakan **Letter Head** dan **Custom Print Format** agar sesuai dengan identitas resmi perusahaan.
 
----
-
-## Ringkasan Pembelajaran
+### Komponen Utama
 
-Pada Chapter 11 mempelajari penggunaan Role Permission Manager untuk mengatur hak akses setiap Role secara lebih rinci sehingga keamanan sistem lebih terjaga.
-
----
+#### 1. Letter Head & HTML Footer
+* Membuat Letter Head bernama `PT Testing ERP Letter Head` yang berisi logo dan info resmi perusahaan.
+* Membuat *Footer* kustom menggunakan kode HTML untuk menampilkan nama, alamat, email, dan nomor telepon agar tata letak teks, warna, dan ukuran lebih rapi.
 
-# Chapter 12 - Manufacturing Module
+#### 2. Custom Print Format
+Membuat format cetak baru bernama `Custom Sales Invoice` untuk DocType `Sales Invoice` pada modul *Accounts* tanpa merusak template bawaan ERPNext.
 
-## Tujuan
+#### 3. Modifikasi Tampilan Dokumen
+* Mengubah judul (*Heading*) dokumen dari **Sales Invoice** menjadi **Customer Invoice**.
+* Menyederhanakan tampilan dengan menghapus field tidak penting dan mempertahankan field krusial (*Customer Name, Dates, Cost Center, Items, Totals, In Words*).
 
-Mempelajari proses produksi pada ERPNext mulai dari Bill of Materials (BOM) hingga menghasilkan Finished Goods.
+### Hasil Akhir
+Saat melakukan *Print Preview* pada Sales Invoice dengan memilih format kustom, perubahan berhasil diterapkan secara penuh: Judul telah berubah, *field* menjadi ringkas, serta *Letter Head* dan *HTML Footer* muncul dengan presisi.
 
 ---
-
-## BOM (Bill of Materials)
-
-BOM berisi daftar bahan baku yang dibutuhkan untuk membuat suatu produk.
-
-Contoh:
-
-Produk:
 
-FG - Plumcake
+## 📌 Chapter 6 - Purchase Cycle
 
-Bahan baku:
+### Tujuan
+Mempelajari alur lengkap (*end-to-end*) proses pembelian barang dagang di ERPNext, mulai dari pembuatan master *Item* baru hingga pengecekan jurnal di laporan keuangan.
 
-- Tepung : 5 kg
-- Gula : 2 kg
-- Telur : 20 butir
+### Alur Detail
+$$\text{Create Item} \rightarrow \text{Purchase Order} \rightarrow \text{Purchase Receipt} \rightarrow \text{Check Stock Ledger} \rightarrow \text{Purchase Invoice} \rightarrow \text{Payment Entry} \rightarrow \text{Check General Ledger}$$
 
----
-
-## Work Order
+### Studi Kasus Pengujian
+* **Supplier:** Supplier1
+* **Item:** `ITEM02` (Pensil) | **Group:** Products
+* **Kuantitas:** 10 unit | **Harga:** Rp10.000 / unit
+* **Total Transaksi:** Rp100.000
 
-Work Order digunakan sebagai perintah untuk menjalankan proses produksi berdasarkan BOM.
+### Hasil Pengujian
+* **Stock Ledger:** Valid, kuantitas `ITEM02` terbukti bertambah 10 unit di gudang `Stores - PTE` sesaat setelah *Purchase Receipt* di-submit.
+* **General Ledger:** Valid, mencatat mutasi keuangan secara tepat untuk akrual penerimaan barang (*Purchase Receipt*), pengakuan utang (*Purchase Invoice*), dan pelunasan kas (*Payment Entry*).
 
 ---
-
-## Menyiapkan Bahan Baku
-
-Mengisi stok awal menggunakan Stock Reconciliation.
 
-Contoh:
+## 📌 Chapter 7 - Batch Management
 
-- Tepung
-- Gula
-- Telur
+### Tujuan
+Mempelajari penggunaan fitur *Batch Management* pada ERPNext untuk mencatat dan melacak pergerakan stok barang berdasarkan nomor batch (sangat penting untuk produk dengan tanggal kedaluwarsa seperti obat/makanan).
 
-Jika valuation rate belum tersedia maka akan muncul error **Valuation Missing**.
+### Alur Pengujian
+1. **Master Item:** Membuat item `ITEM03` (Panadol Extra), mengaktifkan opsi **Has Batch No** dan **Maintain Stock**.
+2. **Batch Creation:** Membuat nomor batch baru `BATCH-ITEM03-001`.
+3. **Inbound Transaksi:** Memproses *Purchase Receipt* $\rightarrow$ *Purchase Invoice* $\rightarrow$ *Payment Entry* dengan memasukkan nomor batch yang telah dibuat ke gudang `Stores - PTE`.
+4. **Outbound Transaksi:** Memproses penjualan menggunakan *Delivery Note* dan *Sales Invoice* dengan mengambil stok dari batch yang sama.
 
----
-
-## Material Transfer for Manufacture
+### Hasil Pembelajaran
+Stok barang sukses ter-filter dan terlacak secara spesifik berdasarkan nomor batch pada *Stock Ledger*, memudahkan pelacakan jika sewaktu-waktu dibutuhkan *product recall* atau pengecekan *expiry date*.
 
-Memindahkan bahan baku dari gudang menuju Work In Progress.
-
 ---
-
-## Job Card
 
-Digunakan untuk menjalankan setiap proses produksi seperti:
+## 📌 Chapter 8 - POS Profile
 
-- Mixing
-- Cooking
-- Packing
+### Tujuan
+Mempelajari proses transaksi penjualan ritel/langsung menggunakan fitur **Point of Sale (POS)** di ERPNext, mirip dengan sistem kasir minimarket atau apotek.
 
-Proses:
+### Langkah Kerja & Hasil Pengujian
+* **POS Profile Setup:** Mengonfigurasi kasir dengan gudang `Stores - PTE`, user `Administrator`, daftar harga *Standard*, dan metode pembayaran *Cash*.
+* **POS Opening Entry:** Membuka sesi kasir dengan modal awal (*Opening Amount*) sebesar **Rp1.000.000**.
+* **Transaksi POS:** Menjual `Panadol` sebanyak 3 unit secara tunai. Sistem otomatis menghasilkan *POS Invoice* dengan status langsung **Paid**.
+* **POS Closing Entry & Rekonsiliasi:** Menutup sesi kasir di akhir hari.
+  * *Opening Amount:* Rp1.000.000
+  * *Penjualan POS:* Rp45.000
+  * *Expected Closing Amount:* Rp1.045.000
+  * *Difference:* **Rp0** (Tidak ada selisih kas / Valid).
 
-Start Job → Complete Job → Submit
-
----
-
-## Hasil
-
-Setelah seluruh proses selesai, ERPNext menghasilkan Finished Goods dan memasukkannya ke gudang.
-
 ---
-
-## Ringkasan Pembelajaran
 
-Pada Chapter 12 mempelajari proses produksi menggunakan Manufacturing Module mulai dari membuat BOM, Work Order, menyiapkan bahan baku, Material Transfer, Job Card hingga menghasilkan Finished Goods.
-
----
+## 📌 Chapter 9 - Batch Number pada POS
 
-# Chapter 16 - Invoice Payment Reconciliation
+### Tujuan
+Mempelajari integrasi dan penggunaan *Batch Number* barang saat melakukan transaksi di modul kasir *Point of Sale* (POS).
 
-## Tujuan
+### Alur & Keterbatasan Sistem
+Proses pengujian dilakukan dengan membuat batch kedua, menerima stok via *Purchase Receipt*, lalu melakukan transaksi retail via POS hingga *Closing Entry* dengan hasil rekonsiliasi kas yang sesuai (selisih Rp0).
 
-Mempelajari pencatatan pembayaran invoice dan proses rekonsiliasi pembayaran pada ERPNext.
+> ⚠️ **Catatan Penting (Constraint):** ERPNext memiliki keterbatasan bawaan pada scanner barcode batch karena belum bisa otomatis memisahkan nomor batch hanya dari barcode produk standar.
+> * **Solusi:** Perlu dilakukan kustomisasi barcode yang menggabungkan informasi kode *Item* dan *Batch Number* sekaligus.
 
 ---
 
-## Langkah Pengujian
+## 📌 Chapter 10 - Users, Roles & Permission
 
-### Membuat Sales Invoice
+### Tujuan
+Mempelajari pengelolaan keamanan sistem ERPNext melalui pembatasan akses pengguna berdasarkan konsep *User*, *Role*, dan *Permission*.
 
-Data:
+### Konsep Dasar
+* **User:** Akun login pengguna (e.g., Tony - `Tony@Testing.com`).
+* **Role:** Jabatan/fungsi kerja di sistem (e.g., `Sales User`).
+* **Permission:** Hak aksi yang melekat pada Role untuk menjaga kerahasiaan data perusahaan.
 
-- Customer
-- Item
-- Quantity : 1
-- Total Invoice : Rp500.000
+### Hasil Pengujian Akses
+* **Hak Akses Sukses:** User Tony dengan role `Sales User` sukses membuka, membuat, mengedit, dan menyimpan dokumen di menu `Selling -> Quotation`.
+* **Pembatasan Sukses:** Saat Tony mencoba mengakses *User List* milik Administrator, sistem menolak dan menampilkan pesan error **"Not Permitted"**.
 
-Status:
-
-- Unpaid
-
 ---
 
-### Pembayaran Sebagian
+## 📌 Chapter 11 - Role Permission Manager
 
-Melakukan Payment Entry.
+### Tujuan
+Mempelajari pengaturan hak akses dokumen secara lebih granular/rinci (Read, Write, Create, Delete, Submit, Cancel, Amend, Print) menggunakan fitur **Role Permission Manager**.
 
-- Total Invoice : Rp500.000
-- Pembayaran : Rp200.000
-- Sisa Tagihan : Rp300.000
+### Kasus Pengujian
+Mengonfigurasi Role `Sales User` (akun Tony) agar memiliki hak untuk **Read, Write, dan Create**, namun mematikan hak untuk melakukan **Delete, Submit, Cancel, dan Amend** pada dokumen *Quotation*.
 
-Status:
+### Hasil Pengujian
+Sistem berjalan sesuai aturan: Akun Tony tetap bisa membuat dan merevisi draf *Quotation*, tetapi tombol untuk *Submit* (Posting resmi) maupun opsi untuk *Delete* hilang/dihalang oleh sistem. Hal ini memastikan proses approval tetap berada di level supervisor.
 
-- Partly Paid
-
 ---
-
-### Pelunasan
 
-Melakukan Payment Entry kedua.
+## 📌 Chapter 12 - Manufacturing Module
 
-- Outstanding Amount : Rp300.000
-- Paid Amount : Rp300.000
+### Tujuan
+Mempelajari proses produksi manufaktur pada ERPNext, mulai dari perakitan bahan baku hingga menghasilkan produk jadi (*Finished Goods*).
 
-Status berubah menjadi:
+### Alur Kerja Manufaktur
+1. **BOM (Bill of Materials):** Membuat resep formula produk jadi. Contoh: Produk `FG - Plumcake` membutuhkan bahan baku Tepung (5 kg), Gula (2 kg), dan Telur (20 butir).
+2. **Work Order (WO):** Dokumen perintah resmi untuk memulai proses produksi berdasarkan BOM.
+3. **Stock Reconciliation:** Menyiapkan dan memasukkan saldo stok awal bahan baku.
+   > **Insight:** Jika *valuation rate* bahan baku kosong, sistem akan memicu error *Valuation Missing*.
+4. **Material Transfer for Manufacture:** Memindahkan bahan baku fisik dari gudang utama menuju gudang *Work In Progress* (WIP).
+5. **Job Card:** Menjalankan instruksi kerja per tahapan (*Mixing $\rightarrow$ Cooking $\rightarrow$ Packing*). Tahapan: *Start Job $\rightarrow$ Complete Job $\rightarrow$ Submit*.
+6. **Finished Goods:** Setelah seluruh *Job Card* disubmit, sistem otomatis mengurangi stok bahan baku di WIP dan menerbitkan stok produk jadi (`FG - Plumcake`) di gudang akhir.
 
-- Paid
-
 ---
-
-## Payment Reconciliation
 
-Digunakan untuk menghubungkan pembayaran yang belum dialokasikan dengan Sales Invoice yang sesuai.
+## 📌 Chapter 16 - Invoice Payment Reconciliation
 
-Perbedaan:
-
-- **Payment Entry** digunakan untuk mencatat pembayaran customer.
-- **Payment Reconciliation** digunakan untuk menghubungkan pembayaran yang belum teralokasi dengan invoice.
-
----
+### Tujuan
+Mempelajari pencatatan pembayaran cicilan/bertahap pada invoice serta proses rekonsiliasi data pembayaran yang belum teralokasi di ERPNext.
 
-## Ringkasan Pembelajaran
+### Langkah Pengujian Pembayaran Bertahap
+* Membuat *Sales Invoice* dengan total nilai **Rp500.000** (Status awal: *Unpaid*).
+* **Pembayaran 1 (Sebagian):** Melakukan *Payment Entry* senilai **Rp200.000**. Status invoice otomatis berubah menjadi **Partly Paid** dengan sisa tagihan Rp300.000.
+* **Pembayaran 2 (Pelunasan):** Melakukan *Payment Entry* kedua senilai **Rp300.000**. Status invoice berubah menjadi **Paid**.
 
-Pada Chapter 16 mempelajari proses pembayaran invoice secara bertahap hingga lunas serta penggunaan Payment Reconciliation untuk memastikan pembayaran telah terhubung dengan invoice yang sesuai.
+### Fitur Payment Reconciliation
+Modul ini digunakan secara khusus untuk menjodohkan dokumen pembayaran masuk (*unallocated payment*) dengan dokumen piutang *Sales Invoice* yang menggantung secara manual apabila kasir menerima uang terlebih dahulu sebelum invoice diterbitkan.
+```text
+Bedakan:
+- Payment Entry        : Untuk mencatat mutasi uang masuk/keluar secara langsung atas invoice.
+- Payment Reconciliation: Menghubungkan kas gantung agar bersih (clearing) dengan invoice yang tepat.
