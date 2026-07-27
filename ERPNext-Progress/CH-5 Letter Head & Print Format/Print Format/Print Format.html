@@ -1,0 +1,686 @@
+{# ========================================================== #}
+{# BAGIAN 1: MACRO HEADER                                     #}
+{# Membuat Header yang dapat dipanggil kembali menggunakan    #}
+{# {{ header() }} pada halaman pertama dan halaman berikutnya. #}
+{# ========================================================== #}
+
+{% macro header() %}
+
+<div style="
+    text-align: center;
+    border-bottom: 2px solid black;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+">
+
+    {# Menampilkan nama perusahaan #}
+    <h2 style="margin: 0 0 5px 0;">
+        PT Testing ERP
+    </h2>
+
+    {# Menampilkan jenis dokumen #}
+    <p style="margin: 0;">
+        SALES INVOICE
+    </p>
+
+</div>
+
+{% endmacro %}
+
+
+
+{# ========================================================== #}
+{# BAGIAN 2: MACRO FOOTER                                     #}
+{# Membuat Footer yang akan ditampilkan pada akhir invoice.    #}
+{# ========================================================== #}
+
+{% macro footer() %}
+
+<div style="
+    text-align: center;
+    border-top: 2px solid black;
+    margin-top: 25px;
+    padding-top: 8px;
+">
+
+    {# Menampilkan ucapan terima kasih #}
+    <p style="margin: 0 0 5px 0;">
+        Terima kasih atas transaksi Anda
+    </p>
+
+    {# Menampilkan nama perusahaan pada Footer #}
+    <p style="margin: 0;">
+        <strong>PT Testing ERP</strong>
+    </p>
+
+</div>
+
+{% endmacro %}
+
+
+
+{# ========================================================== #}
+{# BAGIAN 3: MACRO HEADER TABEL                               #}
+{# Membuat judul kolom tabel agar dapat digunakan kembali      #}
+{# pada halaman pertama maupun halaman lanjutan.               #}
+{# ========================================================== #}
+
+{% macro table_header() %}
+
+<tr>
+
+    {# Kolom nomor urut item #}
+    <th style="
+        width: 8%;
+        padding: 8px;
+        text-align: center;
+    ">
+        No
+    </th>
+
+
+    {# Kolom nama item #}
+    <th style="
+        width: 32%;
+        padding: 8px;
+        text-align: left;
+    ">
+        Item
+    </th>
+
+
+    {# Kolom jumlah item #}
+    <th style="
+        width: 15%;
+        padding: 8px;
+        text-align: center;
+    ">
+        Quantity
+    </th>
+
+
+    {# Kolom harga satuan item #}
+    <th style="
+        width: 22%;
+        padding: 8px;
+        text-align: right;
+    ">
+        Rate
+    </th>
+
+
+    {# Kolom total harga setiap item #}
+    <th style="
+        width: 23%;
+        padding: 8px;
+        text-align: right;
+    ">
+        Amount
+    </th>
+
+</tr>
+
+{% endmacro %}
+
+
+
+{# ========================================================== #}
+{# BAGIAN 4: MEMBUAT VARIABEL JINJA                           #}
+{# {% set %} digunakan untuk menyimpan data ke dalam variabel. #}
+{# ========================================================== #}
+
+
+{# Mengambil data Customer dari Sales Invoice #}
+{% set nama_customer = doc.customer %}
+
+
+{# Mengambil Grand Total dari Sales Invoice #}
+{% set total_invoice = doc.grand_total %}
+
+
+{# Menentukan maksimal 9 item pada setiap halaman #}
+{% set items_per_page = 9 %}
+
+
+{# Menghitung jumlah seluruh item dalam Sales Invoice #}
+{% set total_items = doc.items | length %}
+
+
+{# Menghitung jumlah halaman berdasarkan jumlah item #}
+{% set total_pages =
+    ((total_items + items_per_page - 1) / items_per_page) | int
+%}
+
+
+
+{# ========================================================== #}
+{# BAGIAN 5: MENAMPILKAN HEADER                               #}
+{# Memanggil Macro Header yang sudah dibuat sebelumnya.        #}
+{# ========================================================== #}
+
+{{ header() }}
+
+
+
+{# ========================================================== #}
+{# BAGIAN 6: INFORMASI SALES INVOICE                          #}
+{# Menampilkan nomor invoice, Customer, dan tanggal transaksi. #}
+{# ========================================================== #}
+
+<table style="
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+">
+
+    <tr>
+
+
+        {# Bagian kiri informasi Invoice #}
+        <td style="
+            width: 60%;
+            vertical-align: top;
+        ">
+
+
+            {# Menampilkan nomor Sales Invoice #}
+            <p style="margin: 3px 0;">
+
+                <strong>Invoice No:</strong>
+
+                {{ doc.name }}
+
+            </p>
+
+
+            {# Menampilkan ID Customer #}
+            <p style="margin: 3px 0;">
+
+                <strong>Customer:</strong>
+
+                {{ nama_customer }}
+
+            </p>
+
+
+            {# Menampilkan nama Customer #}
+            <p style="margin: 3px 0;">
+
+                <strong>Customer Name:</strong>
+
+                {{ doc.customer_name }}
+
+            </p>
+
+        </td>
+
+
+
+        {# Bagian kanan informasi Invoice #}
+        <td style="
+            width: 40%;
+            vertical-align: top;
+            text-align: right;
+        ">
+
+
+            {# Menampilkan tanggal transaksi #}
+            <p style="margin: 3px 0;">
+
+                <strong>Posting Date:</strong>
+
+                {{ frappe.utils.formatdate(doc.posting_date) }}
+
+            </p>
+
+
+            {# Menampilkan tanggal jatuh tempo pembayaran #}
+            <p style="margin: 3px 0;">
+
+                <strong>Due Date:</strong>
+
+                {{ frappe.utils.formatdate(doc.due_date) }}
+
+            </p>
+
+        </td>
+
+    </tr>
+
+</table>
+
+
+
+{# ========================================================== #}
+{# BAGIAN 7: INFORMASI TOTAL DAN CUSTOM FIELD                 #}
+{# Menampilkan Grand Total, Catatan Testing, dan Status.       #}
+{# ========================================================== #}
+
+<div style="
+    background-color: #f2f2f2;
+    padding: 12px;
+    margin-bottom: 20px;
+">
+
+
+    {# Menampilkan Grand Total dalam format mata uang #}
+    <p style="margin: 3px 0;">
+
+        <strong>Grand Total:</strong>
+
+        {{ frappe.utils.fmt_money(
+            doc.grand_total,
+            currency=doc.currency
+        ) }}
+
+    </p>
+
+
+
+    {# Menampilkan Custom Field yang dibuat melalui Customize Form #}
+    <p style="margin: 3px 0;">
+
+        <strong>Catatan Testing:</strong>
+
+        {{ doc.custom_catatan_testing }}
+
+    </p>
+
+
+
+    {# ====================================================== #}
+    {# KONDISI IF DAN ELSE                                    #}
+    {# Menentukan Status Invoice berdasarkan Grand Total.      #}
+    {# ====================================================== #}
+
+
+    {# Jika Grand Total lebih dari atau sama dengan Rp500.000 #}
+    {% if total_invoice >= 500000 %}
+
+        <p style="margin: 3px 0;">
+
+            <strong>Status Invoice:</strong>
+
+            Transaksi Besar
+
+        </p>
+
+
+    {# Jika Grand Total kurang dari Rp500.000 #}
+    {% else %}
+
+        <p style="margin: 3px 0;">
+
+            <strong>Status Invoice:</strong>
+
+            Transaksi Kecil
+
+        </p>
+
+
+    {# Mengakhiri kondisi IF #}
+    {% endif %}
+
+</div>
+
+
+
+{# ========================================================== #}
+{# BAGIAN 8: JUDUL DAFTAR ITEM                                #}
+{# ========================================================== #}
+
+<h3 style="margin-bottom: 10px;">
+    Daftar Item
+</h3>
+
+
+
+{# ========================================================== #}
+{# BAGIAN 9: MEMBUAT TABEL ITEM                               #}
+{# Tabel digunakan untuk menampilkan seluruh data item.        #}
+{# ========================================================== #}
+
+<table
+    border="1"
+    style="
+        width: 100%;
+        border-collapse: collapse;
+    "
+>
+
+
+    {# Memanggil Macro Header Tabel #}
+    {{ table_header() }}
+
+
+
+    {# ====================================================== #}
+    {# PERULANGAN FOR                                         #}
+    {# Mengambil seluruh item yang ada pada Sales Invoice.     #}
+    {# ====================================================== #}
+
+    {% for item in doc.items %}
+
+
+    <tr>
+
+
+        {# Membuat nomor urut item otomatis menggunakan loop.index #}
+        <td style="
+            padding: 8px;
+            text-align: center;
+        ">
+
+            {{ loop.index }}
+
+        </td>
+
+
+
+        {# Mengambil nama item #}
+        <td style="
+            padding: 8px;
+            text-align: left;
+        ">
+
+            {{ item.item_name }}
+
+        </td>
+
+
+
+        {# Mengambil Quantity dan mengubahnya menjadi bilangan bulat #}
+        <td style="
+            padding: 8px;
+            text-align: center;
+        ">
+
+            {{ item.qty | int }}
+
+        </td>
+
+
+
+        {# Mengambil Rate dan mengubahnya ke format mata uang #}
+        <td style="
+            padding: 8px;
+            text-align: right;
+        ">
+
+            {{ frappe.utils.fmt_money(
+                item.rate,
+                currency=doc.currency
+            ) }}
+
+        </td>
+
+
+
+        {# Mengambil Amount dan mengubahnya ke format mata uang #}
+        <td style="
+            padding: 8px;
+            text-align: right;
+        ">
+
+            {{ frappe.utils.fmt_money(
+                item.amount,
+                currency=doc.currency
+            ) }}
+
+        </td>
+
+    </tr>
+
+
+
+    {# ====================================================== #}
+    {# BAGIAN 10: PAGE BREAK OTOMATIS                         #}
+    {# Membuat halaman baru setelah setiap 9 item.             #}
+    {# not loop.last mencegah halaman kosong pada item terakhir.#}
+    {# ====================================================== #}
+
+    {% if loop.index % items_per_page == 0 and not loop.last %}
+
+
+        {# Menutup tabel pada halaman saat ini #}
+        </table>
+
+
+
+        {# Menampilkan nomor halaman saat ini dan total halaman #}
+        <p style="
+            text-align: center;
+            margin-top: 12px;
+            margin-bottom: 0;
+        ">
+
+            Halaman
+
+            {{ (loop.index / items_per_page) | int }}
+
+            dari
+
+            {{ total_pages }}
+
+        </p>
+
+
+
+        {# Membuat Page Break untuk pindah ke halaman baru #}
+        <div style="page-break-before: always;"></div>
+
+
+
+        {# Memanggil kembali Header pada halaman berikutnya #}
+        {{ header() }}
+
+
+
+        {# Menampilkan judul tabel lanjutan #}
+        <h3 style="margin-bottom: 10px;">
+
+            Daftar Item (Lanjutan)
+
+        </h3>
+
+
+
+        {# Membuka kembali tabel pada halaman berikutnya #}
+        <table
+            border="1"
+            style="
+                width: 100%;
+                border-collapse: collapse;
+            "
+        >
+
+
+            {# Memanggil kembali Header Tabel #}
+            {{ table_header() }}
+
+
+    {# Mengakhiri kondisi Page Break #}
+    {% endif %}
+
+
+
+    {# Mengakhiri perulangan seluruh Item #}
+    {% endfor %}
+
+
+{# Menutup tabel Item #}
+</table>
+
+
+
+{# ========================================================== #}
+{# BAGIAN 11: QR CODE, TOTAL AMOUNT, DAN TERBILANG            #}
+{# Bagian ini ditampilkan setelah seluruh item selesai.        #}
+{# ========================================================== #}
+
+<div style="
+    margin-top: 15px;
+">
+
+
+    <table
+        border="1"
+        style="
+            width: 100%;
+            border-collapse: collapse;
+        "
+    >
+
+
+        <tr>
+
+
+            {# ================================================== #}
+            {# BAGIAN QR CODE                                     #}
+            {# rowspan=2 membuat kolom QR Code menggunakan 2 baris.#}
+            {# ================================================== #}
+
+            <td
+                rowspan="2"
+                style="
+                    width: 20%;
+                    padding: 10px;
+                    text-align: center;
+                    vertical-align: middle;
+                "
+            >
+
+
+                {# Menampilkan QR Code dari File ERPNext #}
+                <img
+                    src="/files/qrcode.png"
+                    style="
+                        width: 100px;
+                        height: 100px;
+                    "
+                >
+
+
+                {# Menampilkan nomor Invoice di bawah QR Code #}
+                <p style="
+                    margin: 5px 0 0 0;
+                    font-size: 11px;
+                ">
+
+                    {{ doc.name }}
+
+                </p>
+
+            </td>
+
+
+
+            {# ================================================== #}
+            {# BAGIAN TOTAL AMOUNT                                #}
+            {# ================================================== #}
+
+            <td style="
+                width: 55%;
+                padding: 10px;
+                text-align: left;
+                background-color: #e0e0e0;
+            ">
+
+                <strong>
+                    Total Amount
+                </strong>
+
+            </td>
+
+
+
+            {# Menampilkan nilai Grand Total #}
+            <td style="
+                width: 25%;
+                padding: 10px;
+                text-align: right;
+                background-color: #e0e0e0;
+            ">
+
+                <strong>
+
+                    {{ frappe.utils.fmt_money(
+                        doc.grand_total,
+                        currency=doc.currency
+                    ) }}
+
+                </strong>
+
+            </td>
+
+        </tr>
+
+
+
+        {# ================================================== #}
+        {# BAGIAN TERBILANG                                    #}
+        {# Mengubah nilai Grand Total menjadi bentuk tulisan.  #}
+        {# ================================================== #}
+
+        <tr>
+
+
+            <td
+                colspan="2"
+                style="
+                    padding: 10px;
+                    text-align: left;
+                    background-color: #f2f2f2;
+                "
+            >
+
+                <strong>Terbilang:</strong>
+
+
+                {# Mengubah Grand Total menjadi Money in Words #}
+                {{ frappe.utils.money_in_words(
+                    doc.grand_total,
+                    doc.currency
+                ) }}
+
+            </td>
+
+        </tr>
+
+
+    </table>
+
+
+</div>
+
+
+
+{# ========================================================== #}
+{# BAGIAN 12: NOMOR HALAMAN TERAKHIR                          #}
+{# Menampilkan nomor dan total halaman pada halaman terakhir.  #}
+{# ========================================================== #}
+
+<p style="
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+">
+
+    Halaman
+
+    {{ total_pages }}
+
+    dari
+
+    {{ total_pages }}
+
+</p>
+
+
+
+{# ========================================================== #}
+{# BAGIAN 13: MENAMPILKAN FOOTER                              #}
+{# Memanggil Macro Footer pada bagian akhir Invoice.           #}
+{# ========================================================== #}
+
+{{ footer() }}
