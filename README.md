@@ -1640,3 +1640,161 @@ Pada Chapter 16 mempelajari proses pembayaran invoice secara bertahap hingga lun
 # Kesimpulan
 
 Selama proses magang, saya mempelajari berbagai modul ERPNext mulai dari Accounting, Buying, Selling, Cost Center & Project, Letter Head & Custom Print Format, Purchase Cycle, Batch Management, POS, Users & Permission, Manufacturing Module, hingga Invoice Payment Reconciliation. Dokumentasi ini disusun berdasarkan praktik langsung dan catatan pembelajaran pada setiap chapter.
+
+---
+
+# Custom Print Format ERPNext (HTML, CSS & Jinja)
+
+## Tujuan
+
+Mempelajari cara membuat **Custom Print Format** pada ERPNext menggunakan HTML, CSS, dan Jinja Template sehingga tampilan dokumen dapat disesuaikan dengan kebutuhan perusahaan.
+
+---
+
+## Materi yang Dipelajari
+
+### Print Format ERPNext
+
+Print Format merupakan fitur pada ERPNext yang digunakan untuk membuat tampilan dokumen cetak sesuai kebutuhan perusahaan, seperti **Sales Invoice**.
+
+Dalam pembuatannya digunakan beberapa teknologi, yaitu:
+
+- **HTML** sebagai struktur dokumen.
+- **CSS** sebagai pengatur tampilan.
+- **Jinja Template** untuk mengambil data dari database ERPNext secara otomatis.
+
+Dengan kombinasi ketiga komponen tersebut, informasi pada invoice dapat ditampilkan secara dinamis sesuai data transaksi.
+
+---
+
+### 1. Custom Print Format
+
+Custom Print Format digunakan untuk membuat format cetak yang dapat disesuaikan dengan kebutuhan perusahaan tanpa mengubah format bawaan ERPNext.
+
+---
+
+### 2. HTML
+
+HTML digunakan untuk membuat struktur dokumen, seperti:
+
+- Judul dokumen
+- Informasi customer
+- Tabel item
+- Total pembayaran
+- Footer
+
+---
+
+### 3. CSS
+
+CSS digunakan untuk mengatur tampilan dokumen, antara lain:
+
+- Warna teks
+- Ukuran font
+- Posisi teks
+- Garis tabel
+- Layout halaman
+
+Tujuannya agar tampilan invoice lebih rapi dan profesional.
+
+---
+
+### 4. Jinja Template
+
+Jinja merupakan template engine yang digunakan ERPNext untuk mengambil data dari database secara otomatis.
+
+Contoh data yang dapat ditampilkan:
+
+- Customer
+- Invoice Number
+- Grand Total
+- Item
+- Posting Date
+
+---
+
+## Fitur Jinja yang Dipelajari
+
+### Variabel (`{% set %}`)
+
+Digunakan untuk menyimpan suatu nilai ke dalam variabel sehingga dapat digunakan kembali tanpa perlu menuliskan kode yang sama berulang kali.
+
+---
+
+### Kondisi (`{% if %}`)
+
+Digunakan untuk menampilkan informasi berdasarkan kondisi tertentu.
+
+Contoh:
+
+- Menampilkan status transaksi.
+- Menampilkan informasi ketika nilai memenuhi syarat tertentu.
+
+---
+
+### Perulangan (`{% for %}`)
+
+Digunakan untuk menampilkan seluruh data item secara otomatis tanpa harus ditulis satu per satu.
+
+---
+
+### Loop Index
+
+Digunakan untuk membuat nomor urut item secara otomatis.
+
+Contoh:
+
+```
+1
+2
+3
+4
+...
+```
+
+---
+
+### Macro
+
+Macro digunakan untuk membuat potongan kode yang dapat digunakan kembali sehingga penulisan kode menjadi lebih efisien.
+
+---
+
+### Tabel Item
+
+Digunakan untuk menampilkan data barang dalam bentuk tabel, seperti:
+
+- Nomor
+- Nama Item
+- Quantity
+- Rate
+- Amount
+
+---
+
+### Page Break
+
+Digunakan untuk memindahkan isi dokumen ke halaman berikutnya apabila jumlah data melebihi batas halaman.
+
+---
+
+### QR Code / Gambar
+
+Digunakan untuk menampilkan gambar atau QR Code yang telah diunggah ke ERPNext pada bagian akhir invoice.
+
+---
+
+### Total Amount & Money in Words
+
+Digunakan untuk menampilkan:
+
+- Total pembayaran
+- Nilai pembayaran dalam bentuk terbilang (*Money in Words*)
+
+Fitur ini membuat dokumen menjadi lebih lengkap dan mudah dipahami.
+
+---
+
+## Hasil Pembelajaran
+
+Pada praktik ini berhasil mempelajari cara membuat **Custom Print Format** menggunakan HTML, CSS, dan Jinja Template pada ERPNext. Selain membuat struktur dan tampilan invoice, juga mempelajari penggunaan variabel, kondisi, perulangan, macro, penomoran otomatis, tabel item, page break, QR Code, serta menampilkan total pembayaran dan *Money in Words*. Seluruh komponen tersebut digunakan untuk menghasilkan dokumen invoice yang dinamis, rapi, dan sesuai kebutuhan perusahaan.
